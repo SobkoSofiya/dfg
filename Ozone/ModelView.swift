@@ -13,8 +13,8 @@ import Alamofire
 
 
 class ModelView: ObservableObject {
-    @State var perehod = 0
-    @State var gym:[Model] = []
+    @Published var perehod = 0
+    @Published var gym:[Model] = []
     func SignUp(user:String, pass:String) {
         let url = "http://gym.areas.su/signup?username=\(user)&email=@3&password=\(pass)&weight=40&height=170"
         AF.request(url, method: .post).validate().responseJSON {[ self] response in
@@ -36,13 +36,13 @@ class ModelView: ObservableObject {
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
-                if json["notice"]["token"] != "" {
+                if json["notice"]["token"].stringValue != "" {
                     perehod = 1
                     
                     
-                } else if json["notice"]["answer"] == "Error username or password" {
+                } else if json["notice"]["answer"].stringValue  == "Error username or password" {
                     perehod = 2
-                } else if json["notice"]["answer"] == "User is active" {
+                } else if json["notice"]["answer"].stringValue  == "User is active" {
                     perehod = 3
                 }
                 print("JSON: \(json)")

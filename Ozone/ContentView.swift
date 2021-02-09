@@ -71,18 +71,20 @@ struct ContentView: View {
                             if nam.contains("@"){
                                 
                                 model.SignIn(user: "\(nam)", pass: "\(pass)")
-                                DispatchQueue.main.asyncAfter(deadline: .now()+2){
-                                if model.perehod == 1 {
-                                    error.toggle()
-                                    mess = "All right!"
-                                } else if model.perehod == 2{
-                                    error.toggle()
-                                    mess = "Error email or password"
-                                }else if model.perehod == 3{
-                                    error.toggle()
-                                    mess = "User is active"
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2 ) {
+                                    if model.perehod == 1 {
+                                        error.toggle()
+                                        mess = "All right!"
+                                    } else if model.perehod == 2{
+                                        error.toggle()
+                                        mess = "Error email or password"
+                                    }else if model.perehod == 3{
+                                        error.toggle()
+                                        mess = "User is active"
+                                    }
                                 }
-                                }
+                                
+                                
                             }else{
                                 error.toggle()
                                 mess = "Error email"
